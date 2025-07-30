@@ -27,9 +27,9 @@ function LoveCalculator() {
             expression,
             result
             });
-            console.log('Saved LoveCalc to DB');
+            // console.log('Saved LoveCalc to DB');
         } catch (error) {
-            console.error('LoveCalc Save failed', error);
+            console.error('Error :', error);
         }
      };
 
