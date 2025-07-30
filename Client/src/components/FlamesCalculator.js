@@ -27,9 +27,9 @@ function FlamesCalculator(){
             expression,
             result
             });
-            console.log('Saved to DB');
+            //console.log('Saved to DB');
         } catch (error) {
-            console.error('Save failed', error);
+            console.error('Error', error);
         }
     };
 
