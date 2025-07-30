@@ -23,7 +23,7 @@ function LoveCalculator() {
 
     const saveCalculation = async (expression, result) => {
         try {
-            await axios.post('http://localhost:5000/api/save', {
+            await axios.post('https://lovecalculator-mwnf.onrender.com/api/save', {
             expression,
             result
             });
