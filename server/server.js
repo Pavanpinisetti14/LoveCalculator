@@ -4,30 +4,27 @@ const cors = require('cors');
 const Calculator = require('./models/Calculator');
 
 const app = express();
-app.use(cors());
+
+
+const allowedOrigins = ['https://love-calculator-red.vercel.app'];
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 app.use(express.json());
 
-// MongoDB connection string (Consider using an environment variable here)
 const MONGO_URI = 'mongodb+srv://Arjun:Pavan1410@cluster.pd7vx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster';
 
 mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
   dbName: 'CalculatorApp'
-})
-.then(() => {
+}).then(() => {
   console.log('MongoDB Connected');
-})
-.catch(err => {
+}).catch(err => {
   console.error('MongoDB connection error:', err);
 });
 
-// ✅ Root route to check server status
-app.get("/", (req, res) => {
-  res.send("LoveCalculator backend is running!");
-});
-
-// POST route to save calculations
 app.post('/api/save', async (req, res) => {
   const { expression, result } = req.body;
   try {
@@ -39,7 +36,7 @@ app.post('/api/save', async (req, res) => {
   }
 });
 
-// GET route to fetch history
+
 app.get('/api/history', async (req, res) => {
   try {
     const history = await Calculator.find().sort({ createdAt: -1 }).limit(10);
@@ -49,7 +46,11 @@ app.get('/api/history', async (req, res) => {
   }
 });
 
-// Server listen
+
+app.get('/', (req, res) => {
+  res.send('Love Calculator Backend is running ❤️');
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
